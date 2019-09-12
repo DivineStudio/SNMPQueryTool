@@ -1,37 +1,53 @@
 package DivineStudio.SNMPQueryTool;
 
-import org.snmp4j.CommunityTarget;
-import org.snmp4j.Snmp;
-import org.snmp4j.Target;
-import org.snmp4j.TransportMapping;
-import org.snmp4j.mp.SnmpConstants;
-import org.snmp4j.smi.*;
-import org.snmp4j.transport.DefaultUdpTransportMapping;
-import org.snmp4j.util.DefaultPDUFactory;
-import org.snmp4j.util.TreeEvent;
-import org.snmp4j.util.TreeUtils;
+import org.snmp4j.smi.OID;
 
 public abstract class SNMP
 {
-    private IpAddress ipAddress;
+    private OID[] oids;
+    private String ipAddress;
     private Integer retries;
     private Integer timeout;
-    private SnmpConstants version;
+    private int version;
     
-    public SNMP(IpAddress ipAddress, Integer retries, Integer timeout, SnmpConstants version)
+    public static final class Ports
     {
+        public static final int port161 = 161;
+        public static final int port162 = 162;
+    }
+    
+    public static final class CommunicationProtocols
+    {
+        public static final String udp = "udp";
+        public static final String tcp = "tcp";
+        
+    }
+    
+    public SNMP(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version)
+    {
+        this.oids = oids;
         this.ipAddress = ipAddress;
         this.retries = retries;
         this.timeout = timeout;
         this.version = version;
     }
     
-    protected IpAddress GetIpAddress()
+    public OID[] GetOids()
+    {
+        return oids;
+    }
+    
+    public void SetOids(OID[] oids)
+    {
+        this.oids = oids;
+    }
+    
+    protected String GetIpAddress()
     {
         return ipAddress;
     }
     
-    protected void SetIpAddress(IpAddress ipAddress)
+    protected void SetIpAddress(String ipAddress)
     {
         this.ipAddress = ipAddress;
     }
@@ -56,12 +72,12 @@ public abstract class SNMP
         this.timeout = timeout;
     }
     
-    protected SnmpConstants GetVersion()
+    protected int GetVersion()
     {
         return version;
     }
     
-    protected void SetVersion(SnmpConstants version)
+    protected void SetVersion(int version)
     {
         this.version = version;
     }
