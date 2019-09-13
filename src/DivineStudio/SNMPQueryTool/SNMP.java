@@ -20,7 +20,6 @@ public abstract class SNMP
     {
         public static final String udp = "udp";
         public static final String tcp = "tcp";
-        
     }
     
     public SNMP(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version)

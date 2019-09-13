@@ -9,10 +9,4 @@ public class SNMPv1 extends SNMPv1v2
     {
         super(oids, ipAddress, retries, timeout, version, communityName);
     }
-    
-    @Override
-    protected void SNMPGet()
-    {
-    
-    }
 }
