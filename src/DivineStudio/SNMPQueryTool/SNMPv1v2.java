@@ -1,12 +1,13 @@
 package DivineStudio.SNMPQueryTool;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.InputStreamReader;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
+import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.Address;
 import org.snmp4j.smi.GenericAddress;
 import org.snmp4j.smi.OID;
@@ -47,7 +48,7 @@ public abstract class SNMPv1v2 extends SNMP
             target.setVersion(GetVersion());
     
         GetHelpers helper = new GetHelpers(target);
-        helper.PerformSNMPGet();
+        helper.StartGet();
     }
     
     private class GetHelpers
@@ -60,7 +61,7 @@ public abstract class SNMPv1v2 extends SNMP
             this.target = target;
         }
         
-        public void PerformSNMPGet()
+        public void StartGet()
         {
             SNMPResults results = new SNMPResults();
     
@@ -72,13 +73,17 @@ public abstract class SNMPv1v2 extends SNMP
                 
                 for (OID oid : GetOids())
                 {
-                    results.SetResults(Integer.toString(oid.get(index)), GetAsString(oid));
+                    results.SetResults(oid.toString(), GetAsString(oid));
                     index++;
                 }
+                
+                results.PrintResults();
+
             }
-            catch (IOException ex)
+            catch (Throwable ex)
             {
-                System.out.println("IOException:\n\n" + ex);
+                System.out.println("IOException:\n" + ex.getMessage() + "\n");
+                ex.printStackTrace();
             }
         }
         
@@ -91,8 +96,17 @@ public abstract class SNMPv1v2 extends SNMP
     
         private String GetAsString(OID oid) throws IOException
         {
-            ResponseEvent event = Get(new OID[]{oid});
-            return event.getResponse().get(0).getVariable().toString();
+            try
+            {
+                ResponseEvent event = Get(new OID[]{oid});
+                return event.getResponse().get(0).getVariable().toString();
+            }
+            catch(NullPointerException ex)
+            {
+                System.out.println("No Device Found | Retrying...");
+                return "";
+            }
+            
         }
     
         private ResponseEvent Get(OID oids[]) throws IOException

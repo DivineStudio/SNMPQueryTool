@@ -17,6 +17,11 @@ public class SNMPResults
         return results;
     }
     
+    public boolean IsEmpty()
+    {
+        return results.isEmpty();
+    }
+    
     public void SetResults(String oid, String value)
     {
         this.results.put(oid, value);
@@ -26,12 +31,15 @@ public class SNMPResults
     {
         if (!results.isEmpty())
         {
+            String str = "";
             for (Map.Entry<String, String> r : this.results.entrySet())
             {
-                System.out.println("OID: " + r.getKey() + " | Value: " + r.getValue());
+                str += "OID: " + r.getKey() + " | Value: " + r.getValue() + "\n";
             }
+            
+            System.out.println(str);
         }
         else
-            System.out.println("Device not found. No results to display.");
+            System.out.println("Device not found!");
     }
 }

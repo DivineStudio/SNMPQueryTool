@@ -22,6 +22,18 @@ public abstract class SNMP
         public static final String tcp = "tcp";
     }
     
+    public static final class SNMPGetOIDs
+    {
+        public static final OID[] Oids = new OID[]{
+                new OID("1.3.6.1.2.1.1.1.0"),  //sysDescr
+                new OID("1.3.6.1.2.1.1.2.0"),  //sysObjectID
+                new OID("1.3.6.1.2.1.1.3.0"), //sysUpTime
+                new OID("1.3.6.1.2.1.1.4.0"),  //sysContact
+                new OID("1.3.6.1.2.1.1.5.0"),  //sysName
+                new OID("1.3.6.1.2.1.25.3.2.1.4.1") //productID
+        };
+    }
+    
     public SNMP(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version)
     {
         this.oids = oids;

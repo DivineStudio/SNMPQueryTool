@@ -1,6 +1,9 @@
 package DivineStudio.SNMPQueryTool;
 
-import org.snmp4j.smi.OID;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.snmp4j.mp.SnmpConstants;
 
 public class Application
@@ -19,11 +22,99 @@ public class Application
 
     // TODO Add the correct OIDs to perform SNMPGet
     // TODO Ensure that if the device does not return a value that it is not found
-    private static void InitializeInterface()
+    private static void InitializeInterface() throws IOException
     {
-        System.out.println("Test: Performing SNMPGet on 10.6.0.40 with \"public\" community name.\n\n");
-
-        OID[] oids = new OID[]{new OID(".1.1.0.2.5.1.0")};
-        SNMPv1 snmpv1 = new SNMPv1(oids, "10.6.0.40", 5, 1000, SnmpConstants.version1, "public");
+        String SnmpVersion = "";
+        boolean isProcessCorrect = true;
+        boolean performAgain = true;
+    
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
+        {
+            do
+            {
+                do
+                {
+                    System.out.print("Select which process to perform:\n\nSNMPGet\n1: SNMPv1/v2c\n2: SNMPv3 (Not Yet Available)\n\nEnter Selection: ");
+                    SnmpVersion = reader.readLine();
+        
+                    System.out.println();
+        
+                    switch (SnmpVersion)
+                    {
+                        case "1":
+                            String ip = "";
+                            String community = "";
+                
+                            try
+                            {
+                                boolean isIP = false;
+                    
+                                do
+                                {
+                                    System.out.print("Please enter IP address of the device: ");
+                                    ip = reader.readLine();
+                                    if (ValidateIPv4.IsValidIPv4(ip) != false)
+                                        isIP = true;
+                                    else
+                                    {
+                                        isIP = false;
+                                        System.out.println("\n===============\n\nNot an IP address. Ensure that the IP address is entered in IPv4 format. Try again.\n");
+                                    }
+                                } while (!isIP);
+                    
+                                System.out.print("Please enter community name of the device (if \"public\", you can leave blank): ");
+                                community = reader.readLine();
+                    
+                                System.out.println("\nRetries: 5 | Timeout: 1000 ms\n");
+                    
+                                SNMPv1 snmpv1 = new SNMPv1(SNMP.SNMPGetOIDs.Oids, ip, 5, 1000, SnmpConstants.version1, community);
+                                snmpv1.SNMPGet();
+                            } catch (IOException ex)
+                            {
+                                System.out.println(ex.getMessage());
+                            }
+                
+                            isProcessCorrect = true;
+                
+                            break;
+                        case "2": // TODO Until this is built out, break through.
+                            // break;
+                        default:
+                            isProcessCorrect = false;
+                            System.out.println("===============\n\nIncorrect input. Try again.\n");
+                    }
+        
+                    boolean inputFlag = false;
+                    String yn = "n";
+        
+                    do
+                    {
+                        System.out.print("Would you like to use this tool again? (y)es or (n)o: ");
+                        yn = reader.readLine();
+                        
+                        switch (yn)
+                        {
+                            case "y":
+                                inputFlag = true;
+                                performAgain = true;
+                                break;
+                            case "n":
+                                inputFlag = true;
+                                performAgain = false;
+                                break;
+                            default:
+                                inputFlag = false;
+                                System.out.println("\n===============\n\nIncorrect input. Try again");
+                        }
+                        
+                        System.out.println();
+                    } while (!inputFlag);
+                } while (!isProcessCorrect);
+            } while (performAgain);
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex + "\n" + ex.getStackTrace().toString());
+        }
     }
 }
