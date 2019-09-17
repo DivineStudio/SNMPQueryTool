@@ -4,8 +4,5 @@ public class SNMPv3
 {
     public SNMPv3()
     {
-    
     }
-    
-    
 }

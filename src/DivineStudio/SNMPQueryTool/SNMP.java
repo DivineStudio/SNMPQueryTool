@@ -34,7 +34,7 @@ public abstract class SNMP
         };
     }
     
-    public SNMP(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version)
+    protected SNMP(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version)
     {
         this.oids = oids;
         this.ipAddress = ipAddress;

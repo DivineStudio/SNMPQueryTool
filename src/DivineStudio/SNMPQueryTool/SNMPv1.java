@@ -1,6 +1,5 @@
 package DivineStudio.SNMPQueryTool;
 
-import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.OID;
 
 public class SNMPv1 extends SNMPv1v2

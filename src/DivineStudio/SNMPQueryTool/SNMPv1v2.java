@@ -1,13 +1,10 @@
 package DivineStudio.SNMPQueryTool;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
-import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.Address;
 import org.snmp4j.smi.GenericAddress;
 import org.snmp4j.smi.OID;
@@ -21,7 +18,7 @@ public abstract class SNMPv1v2 extends SNMP
 {
     private String communityName;
     
-    public SNMPv1v2(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version, String communityName)
+    protected SNMPv1v2(OID[] oids, String ipAddress, Integer retries, Integer timeout, int version, String communityName)
     {
         super(oids, ipAddress, retries, timeout, version);
         this.communityName = communityName;

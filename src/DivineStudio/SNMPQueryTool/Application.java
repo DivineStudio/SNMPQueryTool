@@ -8,20 +8,13 @@ import org.snmp4j.mp.SnmpConstants;
 
 public class Application
 {
-    // TODO Add object definition for initialization in the constructor
-    
-    Application()
-    {
-
-    }
+    Application() { }
 
     public static void main(String[] args) throws Exception
     {
         InitializeInterface();
     }
-
-    // TODO Add the correct OIDs to perform SNMPGet
-    // TODO Ensure that if the device does not return a value that it is not found
+    
     private static void InitializeInterface() throws IOException
     {
         String SnmpVersion = "";
@@ -30,6 +23,9 @@ public class Application
     
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
+            System.out.println();
+            System.out.println();
+            
             do
             {
                 do
@@ -53,6 +49,7 @@ public class Application
                                 {
                                     System.out.print("Please enter IP address of the device: ");
                                     ip = reader.readLine();
+                                    
                                     if (ValidateIPv4.IsValidIPv4(ip) != false)
                                         isIP = true;
                                     else
@@ -77,7 +74,7 @@ public class Application
                             isProcessCorrect = true;
                 
                             break;
-                        case "2": // TODO Until this is built out, break through.
+                        case "2": // TODO Until this is built out, fall through.
                             // break;
                         default:
                             isProcessCorrect = false;
@@ -106,7 +103,6 @@ public class Application
                                 inputFlag = false;
                                 System.out.println("\n===============\n\nIncorrect input. Try again");
                         }
-                        
                         System.out.println();
                     } while (!inputFlag);
                 } while (!isProcessCorrect);
