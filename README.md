@@ -1,4 +1,4 @@
-# SNMP Query Tool Test Project
+# SNMP Query Tool
 
 **This tool is designed for the FMAudit team to facilitate the testing of SNMP-enabled devices for SNMP communication.**
 
