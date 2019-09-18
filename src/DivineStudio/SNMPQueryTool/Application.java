@@ -68,7 +68,7 @@ public class Application
                                 snmpv1.SNMPGet();
                             } catch (IOException ex)
                             {
-                                System.out.println(ex.getMessage());
+                                ExceptionHandler.Print(ex);
                             }
                 
                             isProcessCorrect = true;
@@ -110,7 +110,7 @@ public class Application
         }
         catch(IOException ex)
         {
-            System.out.println(ex + "\n" + ex.getStackTrace().toString());
+            ExceptionHandler.Print(ex);
         }
     }
 }

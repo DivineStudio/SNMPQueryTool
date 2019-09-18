@@ -48,19 +48,9 @@ public abstract class SNMP
         return oids;
     }
     
-    public void SetOids(OID[] oids)
-    {
-        this.oids = oids;
-    }
-    
     protected String GetIpAddress()
     {
         return ipAddress;
-    }
-    
-    protected void SetIpAddress(String ipAddress)
-    {
-        this.ipAddress = ipAddress;
     }
     
     protected int GetRetries()
@@ -68,29 +58,14 @@ public abstract class SNMP
         return retries;
     }
     
-    protected void SetRetries(int retries)
-    {
-        this.retries = retries;
-    }
-    
     protected int GetTimeout()
     {
         return timeout;
     }
     
-    protected void SetTimeout(int timeout)
-    {
-        this.timeout = timeout;
-    }
-    
     protected int GetVersion()
     {
         return version;
-    }
-    
-    protected void SetVersion(int version)
-    {
-        this.version = version;
     }
     
     protected abstract void SNMPGet();

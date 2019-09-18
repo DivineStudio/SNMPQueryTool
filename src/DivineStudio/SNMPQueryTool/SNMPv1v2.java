@@ -29,11 +29,6 @@ public abstract class SNMPv1v2 extends SNMP
         return communityName;
     }
     
-    protected void GetCommunityName(String communityName)
-    {
-        this.communityName = communityName;
-    }
-    
     @Override
     protected void SNMPGet()
     {
@@ -61,11 +56,11 @@ public abstract class SNMPv1v2 extends SNMP
         public void StartGet()
         {
             SNMPResults results = new SNMPResults();
-    
-            int index = 0;
             
             try
             {
+                int index = 0;
+                
                 Start();
                 
                 for (OID oid : GetOids())
@@ -77,10 +72,9 @@ public abstract class SNMPv1v2 extends SNMP
                 results.PrintResults();
 
             }
-            catch (Throwable ex)
+            catch (Throwable th)
             {
-                System.out.println("IOException:\n" + ex.getMessage() + "\n");
-                ex.printStackTrace();
+                ExceptionHandler.Print(th);
             }
         }
         
@@ -100,7 +94,7 @@ public abstract class SNMPv1v2 extends SNMP
             }
             catch(NullPointerException ex)
             {
-                System.out.println("No Device Found | Retrying...");
+                ExceptionHandler.Print("No Device Found | Retrying...");
                 return "";
             }
             
