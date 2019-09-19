@@ -39,16 +39,16 @@ public abstract class SNMPv1v2 extends SNMP
             target.setTimeout(GetTimeout());
             target.setVersion(GetVersion());
     
-        GetHelpers helper = new GetHelpers(target);
+        SNMPv1GetWrapper helper = new SNMPv1GetWrapper(target);
         helper.StartGet();
     }
     
-    private class GetHelpers
+    private class SNMPv1GetWrapper
     {
         private Snmp snmp;
         private CommunityTarget target;
         
-        public GetHelpers(CommunityTarget target)
+        public SNMPv1GetWrapper(CommunityTarget target)
         {
             this.target = target;
         }
