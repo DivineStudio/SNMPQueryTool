@@ -7,6 +7,3 @@ Using the Java language, this tool can be used on any platform that has installe
   
 The tool is or will be capable of the following functions (checked = finished; unchecked = planned/in-progress):
 - [X] SNMPGet: SNMPv1/v2c-enabled devices
-- [ ] SNMPGet: SNMPv3-enabled devices
-- [ ] MIB Walks: SNMPv1/v2c-enabled devices
-- [ ] MIB Walks: SNMPv3-enabled devices
